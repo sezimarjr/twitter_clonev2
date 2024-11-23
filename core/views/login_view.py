@@ -18,6 +18,6 @@ def login_view(request):
             user = form.get_user()
             auth.login(request, user)
             print("Usuario logou com sucesso")
-            return redirect('register.html')
+            return redirect('core:register')
 
     return render(request, 'login.html', {'form': form})
