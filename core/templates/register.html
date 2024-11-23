@@ -1,8 +1,24 @@
-{% block content %}
+{% comment %} {% block content %}
 
 <div>
   <h2>Registro</h2>
   {% include "core/partials/_userform.html" %}
 </div>
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro</title>
+  </head>
+  <body>
+    <h2>Cadastro de Usuário</h2>
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <!-- Exibe o formulário -->
+      <button type="submit">Registrar</button>
+    </form>
+  </body>
+</html>
