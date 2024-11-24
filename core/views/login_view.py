@@ -8,8 +8,8 @@ from django.contrib import auth
 
 def login_view(request):
     form = AuthenticationForm(request)
-    # if request.user.is_authenticated:
-    #     return redirect('login.html')
+    if request.user.is_authenticated:
+        return redirect('admin:index')
 
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
