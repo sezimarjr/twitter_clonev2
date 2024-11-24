@@ -8,34 +8,20 @@ from core.forms import PostForm
 
 
 @login_required
-def post_create(request):
+def index(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.user = request.user  # Associar o post ao usuário autenticado
+            post.user = request.user
             post.save()
-            return redirect('post_list')  # Redireciona para a lista de posts
+            return redirect('index')
     else:
         form = PostForm()
-    # return render(request, 'post_form.html', {'form': form})
-    return 'post_create'
 
-# Listar todos os posts
+    posts = Post.objects.all().order_by('-created_at')  # Posts recentes primeiro
+    return render(request, 'index.html', {'posts': posts, 'form': form})
 
-
-def post_list(request):
-    posts = Post.objects.all()
-    # return render(request, 'post_list.html', {'posts': posts})
-    return 'post_list'
-
-# Detalhar um post específico
-
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    # return render(request, 'post_detail.html', {'post': post})
-    return 'post_detail'
 
 # Editar um post (somente o dono do post pode editar)
 
