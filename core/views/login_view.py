@@ -9,7 +9,7 @@ from django.contrib import auth
 def login_view(request):
     form = AuthenticationForm(request)
     if request.user.is_authenticated:
-        return redirect('admin:index')
+        return redirect('core:index')
 
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -18,6 +18,6 @@ def login_view(request):
             user = form.get_user()
             auth.login(request, user)
             print("Usuario logou com sucesso")
-            return redirect('core:register')
+            return redirect('core:index')
 
     return render(request, 'login.html', {'form': form})

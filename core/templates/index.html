@@ -18,10 +18,15 @@
     </aside>
     <div>
       -- main content --
-      <input type="text" name="tweet" id="tweet" size="50" />
+
+      <form action="" method="post">
+        {% csrf_token %}
+        <textarea name="content" id="content"></textarea>
+        <button type="submit">Postar</button>
+      </form>
 
       {% for post in posts %}
-      <div>{{post}}</div>
+      <div>{{post.content}}</div>
       {% endfor %}
     </div>
   </body>
