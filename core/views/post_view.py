@@ -7,19 +7,22 @@ from core.forms import PostForm
 # Criar um post (somente usuários autenticados)
 
 
-@login_required
+@login_required(login_url='core:login')
 def index(request):
+    form = PostForm()
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-            return redirect('index')
-    else:
-        form = PostForm()
+            print(f"Post criado com sucesso: {post.content}")
+            return redirect('core:index')
+        else:
+            print(f"Formulario invalido {form.errors}")
 
     posts = Post.objects.all().order_by('-created_at')  # Posts recentes primeiro
+
     return render(request, 'index.html', {'posts': posts, 'form': form})
 
 

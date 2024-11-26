@@ -8,6 +8,12 @@
   <body>
     <aside>
       <ul>
+        <li>
+          <form action="{%url 'core:logout'%}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+          </form>
+        </li>
         <li>LOGO</li>
         <li>Pagina inicial</li>
         <li>Explorar</li>
