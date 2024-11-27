@@ -1,39 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/feed.css' %}" />
     <title>Página Inicial / Pia daí</title>
   </head>
   <body>
-    <aside>
-      <ul>
-        <li>
-          <form action="{%url 'core:logout'%}" method="post">
-            {% csrf_token %}
+    <div class="container">
+      <aside>
+        <ul>
+          <li>LOGO</li>
+          <li>
+            {% load static %}
+            <img src="{%static 'images/botao-de-inicio.png'%}" alt="Home" />
+            Pagina inicial
+          </li>
+          <li>
+            {% load static %}
+            <img src="{%static 'images/lupa.png'%}" alt="Home" />
+            Explorar
+          </li>
+          <li>
+            {% load static %}
+            <img src="{%static 'images/notificacao.png'%}" alt="Home" />
+            Notificações
+          </li>
+          <li>
+            {% load static %}
+            <img src="{%static 'images/mensagens.png'%}" alt="Home" />
+            Mensagens
+          </li>
+          <li>
+            {% load static %}
+            <img src="{%static 'images/perfil.png'%}" alt="Home" />
+            Perfil
+          </li>
+        </ul>
+
+        <form action="{%url 'core:logout'%}" method="post">
+          {% csrf_token %} {% load static %}
+          <div class="user_logout">
+            <img
+              class="avatar"
+              src="{{user.profile.avatar.url}}"
+              alt="{{user.username}}"
+            />
+
             <button type="submit">Logout</button>
-          </form>
-        </li>
-        <li>LOGO</li>
-        <li>Pagina inicial</li>
-        <li>Explorar</li>
-        <li>Notificações</li>
-        <li>Mensagens</li>
-        <li>Perfil</li>
-      </ul>
-    </aside>
-    <div>
-      -- main content --
+          </div>
+        </form>
+      </aside>
+      <main>
+        -- main content --
 
-      <form action="" method="post">
-        {% csrf_token %}
-        <textarea name="content" id="content"></textarea>
-        <button type="submit">Postar</button>
-      </form>
+        <form action="" method="post">
+          {% csrf_token %}
+          <textarea name="content" id="content"></textarea>
+          <button type="submit">Postar</button>
+        </form>
 
-      {% for post in posts %}
-      <div>{{post.content}}</div>
-      {% endfor %}
+        {% for post in posts %}
+        <div>{{post.content}}</div>
+        {% endfor %}
+      </main>
     </div>
   </body>
 </html>
