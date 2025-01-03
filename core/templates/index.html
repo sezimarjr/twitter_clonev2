@@ -94,10 +94,53 @@
             </h3>
             <p>{{post.content|linebreaksbr }}</p>
           </div>
+          <div>
+            <p>
+              Likes
+              <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span>
+            </p>
+            <button
+              id="like-button-{{ post.id }}"
+              onclick="likePost({{ post.id }})"
+            >
+              {% if post.liked_by_user %} Descurtir {% else %} Curtir {%endif %}
+            </button>
+          </div>
         </div>
 
         {% endfor %}
       </main>
     </div>
   </body>
+  <script>
+    function likePost(postId) {
+      fetch(`/post/${postId}/like/`, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+            .value,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.error) {
+            alert("Erro ao curtir o post!");
+            return;
+          }
+
+          // Atualiza o contador de curtidas
+          const likeCount = document.getElementById(`like-count-${postId}`);
+          likeCount.textContent = data.total_likes; // Atualiza o número de curtidas
+          console.log(data.total_likes);
+
+          // Atualiza o texto do botão de curtida/descurtida
+          const likeButton = document.getElementById(`like-button-${postId}`);
+          likeButton.textContent = data.liked_by_user ? "Descurtir" : "Curtir"; // Troca o texto conforme o estado
+        })
+        .catch((error) => {
+          console.error("Erro:", error);
+        });
+    }
+  </script>
 </html>

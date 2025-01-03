@@ -24,6 +24,8 @@ def index(request):
             print(f"Formulario invalido {form.errors}")
 
     posts = Post.objects.all().order_by('-created_at')  # Posts recentes primeiro
+    for post in posts:
+        post.liked_by_user = post.likes.filter(user=request.user).exists()
 
     return render(request, 'index.html', {'posts': posts, 'form': form})
 
