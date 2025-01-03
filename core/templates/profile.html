@@ -4,8 +4,8 @@
     {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/feed.css' %}" />
-    <title>Página Inicial / Pia daí</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <title>Perfil de {{profile.user}}</title>
   </head>
   <body>
     <div class="container">
@@ -15,7 +15,7 @@
           <li>
             {% load static %}
             <img src="{%static 'images/botao-de-inicio.png'%}" alt="Home" />
-            <b><a href="{%url 'core:index'%}">Home</a></b>
+            <a href="{%url 'core:index'%}">Home</a>
           </li>
           <li>
             {% load static %}
@@ -35,9 +35,11 @@
           <li>
             {% load static %}
             <img src="{%static 'images/perfil.png'%}" alt="Perfil" />
+            {% if profile.user == user %} <b>Perfil</b> {% else %}
             <a href="{%url 'core:profile' username=request.user.username%}"
               >Perfil</a
             >
+            {% endif %}
           </li>
         </ul>
 
@@ -55,48 +57,28 @@
         </form>
       </aside>
       <main>
-        <form action="" method="post">
-          {% csrf_token %}
-          <div class="publish__post">
+        <p>{{profile.user}}</p>
+        <div class="profile">
+          {% load static %}
+          <div class="profile__background">
             <img
-              class="post__img"
-              src="{{user.profile.avatar.url}}"
-              alt="{{user.username}}"
+              class="profile__avatar"
+              src="{{profile.avatar.url}}"
+              alt="{{profile.user}}"
             />
-            <textarea
-              name="content"
-              id="content"
-              placeholder="O que está acontecendo?"
-              oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"
-            ></textarea>
-          </div>
-          <button type="submit">Postar</button>
-        </form>
-
-        {% for post in posts %}
-        <div class="post__container">
-          <a href="{%url 'core:profile' username=post.user.username%}">
-            <img
-              class="post__img"
-              src="{{post.user.profile.avatar.url}}"
-              alt=""
-            />
-          </a>
-
-          <div class="post__content">
-            <h3>
-              <a href="{%url 'core:profile' username=post.user.username%}">
-                {{post.user}}
-              </a>
-              <span class="post__date">
-                {{post.created_at|date:"d M"}} {{post.created_at|date:"H:i"}}
-              </span>
-            </h3>
-            <p>{{post.content|linebreaksbr }}</p>
           </div>
         </div>
+        <div class="profile__content">
+          <h1>{{profile.user}}</h1>
+          <p>Joined {{profile.user.date_joined|date:"j \d\e F \d\e Y"}}</p>
+        </div>
 
-        {% endfor %}
+        <div class="profile__posts">
+          <p>POSTS</p>
+          {% for post in posts %}
+          <p>{{post.content}}</p>
+          {% endfor %}
+        </div>
       </main>
     </div>
   </body>

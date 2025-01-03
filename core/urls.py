@@ -8,6 +8,7 @@ app_name = 'core'
 
 urlpatterns = [
     path('home/', views.index, name='index'),
+    path('profile/<str:username>', views.profile_view, name='profile'),
     path('', RedirectView.as_view(url='home/', permanent=False)),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
