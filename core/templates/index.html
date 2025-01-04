@@ -99,12 +99,12 @@
               Likes
               <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span>
             </p>
-            <button
-              id="like-button-{{ post.id }}"
+
+            <div
+              class="{% if post.liked_by_user %}heart is-active{% else %}heart{% endif %}"
               onclick="likePost({{ post.id }})"
-            >
-              {% if post.liked_by_user %} Descurtir {% else %} Curtir {%endif %}
-            </button>
+              id="heart-{{ post.id }}"
+            ></div>
           </div>
         </div>
 
@@ -134,9 +134,8 @@
           likeCount.textContent = data.total_likes; // Atualiza o número de curtidas
           console.log(data.total_likes);
 
-          // Atualiza o texto do botão de curtida/descurtida
-          const likeButton = document.getElementById(`like-button-${postId}`);
-          likeButton.textContent = data.liked_by_user ? "Descurtir" : "Curtir"; // Troca o texto conforme o estado
+          heart = document.querySelector("#heart-" + postId);
+          heart.classList.toggle("is-active");
         })
         .catch((error) => {
           console.error("Erro:", error);

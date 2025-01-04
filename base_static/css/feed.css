@@ -124,3 +124,23 @@ main button {
   justify-content: flex-start;
   max-width: 100%;
 }
+
+/* CORAÇÂO DA CURTIDA */
+
+.heart {
+  width: 100px;
+  height: 100px;
+  background: url("../images/heartLike.png") no-repeat;
+  /* background-position: 0 0; */
+  cursor: pointer;
+  transition: background-position 1s steps(28);
+  transition-duration: 0s;
+}
+.heart.is-active {
+  transition-duration: 1s;
+  background-position: -2800px 0;
+}
+
+.heart.is-liked {
+  background-position: -2800px 0;
+}
