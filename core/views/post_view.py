@@ -1,12 +1,13 @@
+from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden
 from core.models import Post
 from core.forms import PostForm
 from core.models.profile import Profile
-
-# Criar um post (somente usuários autenticados)
+from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required(login_url='core:login')
@@ -18,16 +19,37 @@ def index(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-            print(f"Post criado com sucesso: {post.content}")
             return redirect('core:index')
-        else:
-            print(f"Formulario invalido {form.errors}")
 
-    posts = Post.objects.all().order_by('-created_at')  # Posts recentes primeiro
-    for post in posts:
+    posts = Post.objects.all().order_by('-created_at')
+    paginator = Paginator(posts, 10)  # Mostra 10 por página
+    page_number = request.GET.get('page', 1)
+
+    try:
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'has_next': False}, status=200)
+        page_obj = paginator.page(paginator.num_pages)
+
+    for post in page_obj:
         post.liked_by_user = post.likes.filter(user=request.user).exists()
 
-    return render(request, 'index.html', {'posts': posts, 'form': form})
+    new_users = Profile.objects.exclude(
+        user=request.user).order_by('-user__date_joined')[:4]
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'partials/post_list.html', {
+            'posts': page_obj,
+        })
+
+    return render(request, 'index.html', {
+        'form': form,
+        'posts': page_obj,
+        'new_users': new_users,
+    })
 
 
 # Editar um post (somente o dono do post pode editar)
