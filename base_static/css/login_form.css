@@ -5,27 +5,31 @@
 }
 
 body {
+  position: relative;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("../images/BG-login3.jpg");
-  background-size: cover;
-  /* background: rgb(0, 167, 164); */
-  /* background: linear-gradient(
-    90deg,
-    rgb(5, 199, 196) 0%,
-    rgba(10, 226, 217, 1) 84%
-  ); */
-}
+  flex-direction: column;
 
+  background: #32393f;
+}
+.background-logo {
+  position: absolute;
+  background-image: url("../images/logo-no-BG.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  top: -300px;
+  height: 100%;
+  width: 100%;
+}
 .glass-container {
   width: 300px;
   height: 350px;
   position: relative;
   z-index: 1;
-  background: rgba(0, 217, 255, 0.3);
+  background: rgba(50, 57, 63, 0.2);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   border: 1px solid #fff;

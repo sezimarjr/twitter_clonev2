@@ -14,4 +14,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', LogoutView.as_view(next_page='core:login'), name='logout'),
     path('post/<int:post_id>/like/', views.like_post, name='like_post'),
+    path('update-avatar/', views.update_avatar, name='update_avatar'),
+
 ]
