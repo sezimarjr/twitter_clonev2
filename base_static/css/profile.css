@@ -2,16 +2,20 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   list-style: none;
   text-decoration: none;
 }
 body {
-  width: calc(100vw - 15px); /* 15px é uma média da largura do scrollbar */
+  width: calc(100vw - 15px);
+  overflow-x: hidden;
+  background: #32393f;
 }
-
 a {
-  color: black;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .container {
@@ -47,6 +51,7 @@ li {
   display: flex;
   align-items: center;
   font-size: 22px;
+  color: white;
 }
 
 ul img {
@@ -66,15 +71,89 @@ ul img {
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  object-fit: cover;
+}
+.post__img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+  object-fit: cover;
+}
+.post__date {
+  font-size: 12px;
+  color: #b0b8bf;
+}
+.post__content p {
+  line-break: anywhere;
+  color: white;
+  font-size: 15px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 main {
   padding: 16px;
-  width: 700px;
-  max-width: 100%;
-  border: 1px solid black;
-  margin-left: 238px;
+  width: 610px;
+  border-left: 1px solid #737c86;
+  border-right: 1px solid #737c86;
+  margin-left: 265px;
 }
 
+/* POSTS */
+.post__container {
+  min-height: 85px;
+  max-height: 150px;
+  height: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.post__likes {
+  display: flex;
+  align-items: center;
+  color: rgb(218, 218, 218);
+}
+.post__likes-count {
+  margin-top: 1px;
+  position: relative;
+  left: -25px;
+}
+
+.icon-menu {
+  filter: brightness(0) invert(1);
+}
+
+.border-top {
+  margin-bottom: 8px;
+  width: 609px;
+  border-top: 1px solid #737c86;
+  position: relative;
+  left: -16px;
+}
+
+/* ^^ POSTS */
+
+/* HEART */
+
+.heart {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  left: -16px;
+
+  background: url("../images/heartLike.png") no-repeat;
+  background-size: 1500px 50px;
+  background-position: 0 0;
+
+  cursor: pointer;
+  transition: background-position 1s steps(28);
+  transition-duration: 0s;
+}
+.heart.is-active {
+  transition-duration: 1s;
+  background-position: -1450px 0;
+}
 .profile {
   max-width: 100%;
 }
@@ -98,8 +177,76 @@ main {
 
 .profile__content {
   margin-top: 80px;
+  margin-bottom: 40px;
+  color: #ffffff;
 }
 
 .profile__posts p {
   line-break: anywhere;
+}
+
+#suggestions {
+  width: 230px;
+  height: 300px;
+  padding-top: 24px;
+  margin-left: 16px;
+  position: sticky;
+  top: 24px;
+  border: 1px solid #737c86;
+  border-radius: 10px;
+  padding: 8px;
+  background: #3a4148;
+  color: white;
+}
+.suggestions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.suggestions-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.suggestions-header a {
+  color: #1da1f2;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* Estilo dos usuários */
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #000;
+  transition: background 0.2s;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.user-item:hover {
+  background: #acacac;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffffff;
 }
