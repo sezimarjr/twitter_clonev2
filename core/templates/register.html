@@ -1,24 +1,72 @@
-{% comment %} {% block content %}
-
-<div>
-  <h2>Registro</h2>
-  {% include "core/partials/_userform.html" %}
-</div>
-
-{% endblock content %} {% endcomment %}
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/login_form.css' %}" />
     <title>Cadastro</title>
   </head>
   <body>
-    <h2>Cadastro de Usuário</h2>
-    <form method="POST">
-      {% csrf_token %} {{ form.as_p }}
-      <!-- Exibe o formulário -->
-      <button type="submit">Registrar</button>
-    </form>
+    <div class="background-logo-register"></div>
+    <div class="glass-container-register">
+      <div class="register-box">
+        <h2>Cadastro de Usuário</h2>
+        <form method="POST" novalidate>
+          {% csrf_token %}
+
+          <!-- Renderização manual dos campos -->
+          <div class="form-group">
+            {{ form.email }} {% if form.email.errors %}
+            <div class="error">{{ form.email.errors|first }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.username }} {% if form.username.errors %}
+            <div class="error">{{ form.username.errors|first }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.password1 }} {% if form.password1.errors %}
+            <div class="error">{{ form.password1.errors|first }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.password2 }} {% if form.password2.errors %}
+            <div class="error">{{ form.password2.errors|first }}</div>
+            {% endif %}
+          </div>
+
+          <button type="submit">Registrar</button>
+
+          <p>
+            Already have an account?
+            <a id="register" href="{% url 'core:login' %}">Sign in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("registerForm");
+
+        // Esconde todas as mensagens de erro inicialmente
+        document.querySelectorAll(".error-message").forEach((el) => {
+          el.style.display = "none";
+        });
+
+        form.addEventListener("submit", function () {
+          // Mostra erros apenas após o submit
+          document.querySelectorAll(".error-message").forEach((el) => {
+            if (el.textContent.trim() !== "") {
+              el.style.display = "block";
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>

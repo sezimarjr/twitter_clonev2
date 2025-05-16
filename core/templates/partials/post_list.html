@@ -1,0 +1,30 @@
+{% for post in posts %}
+<div class="border-top"></div>
+<div class="post__container">
+  <a href="{% url 'core:profile' username=post.user.username %}">
+    <img class="post__img" src="{{post.user.profile.avatar.url}}" alt="" />
+  </a>
+  <div class="post__content">
+    <h3>
+      <a href="{% url 'core:profile' username=post.user.username %}">
+        {{post.user}}
+      </a>
+      <span class="post__date">
+        {{post.created_at|date:"d M"}} {{post.created_at|date:"H:i"}}
+      </span>
+    </h3>
+    <p>{{post.content|linebreaksbr }}</p>
+
+    <div class="post__likes">
+      <div
+        class="{% if post.liked_by_user %}heart is-active{% else %}heart{% endif %}"
+        onclick="likePost({{ post.id }})"
+        id="heart-{{ post.id }}"
+      ></div>
+      <span class="post__likes-count" id="like-count-{{ post.id }}">
+        {{ post.total_likes }}
+      </span>
+    </div>
+  </div>
+</div>
+{% endfor %}

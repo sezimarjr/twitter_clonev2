@@ -8,7 +8,7 @@
   text-decoration: none;
 }
 body {
-  width: calc(100vw - 15px);
+  width: calc(100vw);
   overflow-x: hidden;
   background: #32393f;
 }
@@ -53,6 +53,11 @@ li {
   align-items: center;
   font-size: 22px;
   color: white;
+}
+
+li a {
+  display: flex;
+  align-items: center;
 }
 
 ul img {
@@ -175,9 +180,10 @@ form button:hover {
   position: relative;
   left: -25px;
 }
-
-.icon-menu {
-  filter: brightness(0) invert(1);
+.icon-menu-svg {
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
 }
 
 /* CORAÇÂO DA CURTIDA */
@@ -273,4 +279,142 @@ form button:hover {
   font-size: 0.95rem;
   font-weight: 500;
   color: #ffffff;
+}
+
+@media screen and (max-width: 1200px) {
+  li a span {
+    display: none;
+  }
+  main {
+    margin-left: 100px;
+  }
+  aside {
+    padding-left: 0px;
+  }
+  ul {
+    padding-left: 40px;
+  }
+  .user_logout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px;
+  }
+  .user_logout > img {
+    width: 40px;
+    height: 40px;
+  }
+  .user_logout > button {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}
+
+@media screen and (max-width: 1012px) {
+  main {
+    width: 500px;
+  }
+  .border-top {
+    width: 499px;
+  }
+  .publish__post-button {
+    width: 93%;
+  }
+}
+
+@media screen and (max-width: 863px) {
+  #suggestions {
+    display: none;
+  }
+  .publish__post-button {
+    width: 80%;
+  }
+  main {
+    width: 100vw;
+    padding: 0px;
+  }
+  .border-top {
+    width: 99vw;
+    left: 0px;
+  }
+  .post__container {
+    padding-left: 16px;
+    padding-right: 120px;
+  }
+  .publish__post {
+    padding-left: 16px;
+    padding-right: 24px;
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+  aside {
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 702px) {
+  .user_logout {
+    display: none;
+  }
+  aside {
+    bottom: 0;
+    top: auto;
+    min-height: auto;
+    width: auto;
+    padding-top: 0px;
+    align-items: center;
+    padding-bottom: 0;
+    z-index: 999;
+  }
+  aside ul {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    padding-left: 0px;
+    max-width: 100vw;
+    min-width: 100vw;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+    border: 1px solid black;
+    background-color: #000;
+  }
+  ul li:first-child {
+    display: none;
+  }
+
+  main {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  main {
+    width: 100vw;
+    padding: 0px;
+  }
+  .border-top {
+    width: 100vw;
+  }
+  .publish__post-button {
+    width: 85%;
+  }
+}
+@media screen and (max-width: 426px) {
+  main {
+    width: 100vw;
+  }
+  .border-top {
+    width: 100vw;
+  }
+  .publish__post-button {
+    width: 86%;
+  }
+  .post__container {
+    padding-right: 24px;
+  }
+  form button {
+    padding: 8px 16px;
+  }
 }

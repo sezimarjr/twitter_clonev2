@@ -17,52 +17,89 @@
           </li>
           <li>
             {% load static %}
-            <img
-              class="icon-menu"
-              src="{%static 'images/botao-de-inicio.png'%}"
-              alt="Home"
-            />
-            <a href="{%url 'core:index'%}">Home</a>
+            <a href="{%url 'core:index'%}">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-house icon-menu-svg"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"
+                /></svg
+              ><span>Home</span>
+            </a>
           </li>
           <li>
             {% load static %}
-            <img
-              class="icon-menu"
-              src="{%static 'images/lupa.png'%}"
-              alt="Explorar"
-            />
-            Explorar
+            <a href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-search icon-menu-svg"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                /></svg
+              ><span>Explorar</span>
+            </a>
           </li>
           <li>
             {% load static %}
-            <img
-              class="icon-menu"
-              src="{%static 'images/notificacao.png'%}"
-              alt="Notificação"
-            />
-            Notificações
+            <a href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-bell icon-menu-svg"
+                icon-menu-svg
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"
+                /></svg
+              ><span>Notificações</span>
+            </a>
           </li>
           <li>
             {% load static %}
-            <img
-              class="icon-menu"
-              src="{%static 'images/mensagens.png'%}"
-              alt="Mensagem"
-            />
-            Mensagens
+            <a href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-envelope icon-menu-svg"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"
+                /></svg
+              ><span>Mensagens</span>
+            </a>
           </li>
           <li>
             {% load static %}
-            <img
-              class="icon-menu"
-              src="{%static 'images/perfil.png'%}"
-              alt="Perfil"
-            />
-            {% if profile.user == user %} <b>Perfil</b> {% else %}
-            <a href="{%url 'core:profile' username=request.user.username%}"
-              >Perfil</a
-            >
-            {% endif %}
+            <a href="{%url 'core:profile' username=request.user.username%}">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-person-fill icon-menu-svg"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                /></svg
+              ><span><b>Perfil</b></span>
+            </a>
           </li>
         </ul>
 
@@ -83,15 +120,16 @@
         <div class="profile">
           {% load static %}
           <div class="profile__background">
-            <img
-              id="profile-avatar"
-              class="profile__avatar"
-              src="{{profile.avatar.url}}"
-              alt="{{profile.user}}"
-              onclick="document.getElementById('avatar-input').click()"
-              style="cursor: pointer"
+            <!-- prettier-ignore -->
+            <img 
+              id="profile-avatar" 
+              class="profile__avatar {% if profile.user == request.user %}own-profile{% endif %}" 
+              src="{{ profile.avatar.url }}" 
+              alt="{{ profile.user }}" 
+              {% if profile.user == user %}onclick="document.getElementById('avatar-input').click()"{% endif %}
+              style="{% if profile.user == user %}cursor: pointer;{% endif %}"
             />
-            <!-- Formulário oculto para upload -->
+            {% if profile.user == user %}
             <input
               type="file"
               id="avatar-input"
@@ -99,50 +137,24 @@
               style="display: none"
               onchange="uploadAvatar(this.files)"
             />
-            />
+            {% endif %}
           </div>
         </div>
-        <div class="profile__content">
-          <h1>{{profile.user}}</h1>
-          <p>Joined {{profile.user.date_joined|date:"j \d\e F \d\e Y"}}</p>
-        </div>
 
-        {% for post in posts %}
-        <div class="border-top"></div>
-        <div class="post__container">
-          <a href="{%url 'core:profile' username=post.user.username%}">
-            <img
-              class="post__img"
-              src="{{post.user.profile.avatar.url}}"
-              alt=""
-            />
-          </a>
-
-          <div class="post__content">
-            <h3>
-              <a href="{%url 'core:profile' username=post.user.username%}">
-                {{post.user}}
-              </a>
-              <span class="post__date">
-                {{post.created_at|date:"d M"}} {{post.created_at|date:"H:i"}}
-              </span>
-            </h3>
-            <p>{{post.content|linebreaksbr }}</p>
-
-            <div class="post__likes">
-              <div
-                class="{% if post.liked_by_user %}heart is-active{% else %}heart{% endif %}"
-                onclick="likePost({{ post.id }})"
-                id="heart-{{ post.id }}"
-              ></div>
-              <span class="post__likes-count" id="like-count-{{ post.id }}"
-                >{{ post.total_likes }}</span
-              >
+        <div class="profile__container">
+          <div class="profile__info">
+            <div class="profile__content">
+              <h1>{{profile.user}}</h1>
+              <p>Joined {{profile.user.date_joined|date:"j \d\e F \d\e Y"}}</p>
             </div>
           </div>
+          <!-- Fechamento adicionado para profile__info -->
+
+          <div id="post-list">{% include 'partials/post_list.html' %}</div>
         </div>
-        {% endfor %}
+        <!-- Fechamento adicionado para profile__container -->
       </main>
+      <!-- Agora sim, fechamento correto do main -->
       <div id="suggestions">
         <div class="suggestions-header">
           <h4>Novos usuários</h4>
