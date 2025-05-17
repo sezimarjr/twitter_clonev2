@@ -179,7 +179,7 @@ p {
 }
 
 /* Estilização básica dos campos */
-@media screen and (min-width: 800px) {
+@media screen and (max-height: 901px) {
   .glass-container {
     top: 100px;
   }
