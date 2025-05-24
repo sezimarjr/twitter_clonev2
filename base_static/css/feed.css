@@ -99,6 +99,7 @@ ul img {
 }
 
 main {
+  min-height: 100vh;
   padding: 16px;
   width: 610px;
   border-left: 1px solid #737c86;
@@ -279,6 +280,21 @@ form button:hover {
   font-size: 0.95rem;
   font-weight: 500;
   color: #ffffff;
+}
+.post__details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+.bi-chat-fill {
+  fill: #aab8c2;
+}
+.bi-chat-fill:hover {
+  fill: #8bfdb7;
+}
+.post__comments span {
+  color: #aab8c2;
 }
 
 @media screen and (max-width: 1200px) {

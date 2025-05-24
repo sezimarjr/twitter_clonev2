@@ -37,6 +37,15 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(
         min_length=3,
     )
+    name = forms.CharField(
+        max_length=100,
+        required=False,
+        label='Nome completo',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Seu nome completo',
+              'class': 'form-control'
+        })
+    )
 
     password1 = forms.CharField(
         widget=forms.PasswordInput(),

@@ -18,6 +18,7 @@ def profile_view(request, username):
     for post in posts:
         post.liked_by_user = post.likes.filter(user=request.user).exists()
         post.total_likes = post.likes.count()
+        post.total_comments = post.comments.count()
 
     new_users = Profile.objects.exclude(
         user=request.user).order_by('-user__date_joined')[:4]

@@ -12,6 +12,7 @@ def validate_image(image):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True, null=True)
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)

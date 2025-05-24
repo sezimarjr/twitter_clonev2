@@ -1,0 +1,120 @@
+.post__header {
+  display: flex;
+  align-items: center;
+}
+
+.post__header a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post__username {
+  font-weight: bold;
+  font-size: 1.17em;
+}
+.single__post-date {
+  margin-top: 24px;
+  font-size: 16px;
+  color: #b0b8bf;
+}
+
+.single__post-header {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+}
+.single__post-content {
+  margin-top: 16px;
+}
+.single__post-content p {
+  color: #fff;
+  line-break: anywhere;
+  font-size: 22px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.post__content__details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+}
+.post__content__details span {
+  color: #fff;
+  margin-left: 4px;
+}
+.bi-chat-fill {
+  fill: #aab8c2;
+}
+label[for="id_content"] {
+  display: none;
+}
+textarea {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background-color: transparent;
+  color: rgb(226, 226, 226);
+  height: 40px;
+  overflow: hidden;
+  resize: none;
+  border: none;
+}
+textarea::placeholder {
+  color: rgb(184, 184, 184);
+  font-size: 20px;
+  font-weight: 500;
+}
+hr {
+  color: #737c86;
+  background-color: #737c86;
+  border-width: 0px;
+  height: 1px;
+}
+hr:first-of-type {
+  margin-top: 24px;
+}
+.post__line--comment {
+  margin-left: -16px;
+  margin-right: -16px;
+}
+.comment-form {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+}
+.comment-form p {
+  width: 100%;
+}
+main {
+  min-height: 100vh;
+}
+
+form button {
+  left: 80%;
+}
+.comment-form img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 16px;
+}
+li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.user__comment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user__comment strong {
+  font-size: 18px;
+}
+.user__comment p {
+  font-size: 15px;
+}

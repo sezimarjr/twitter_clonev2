@@ -17,5 +17,6 @@ urlpatterns = [
     path('update-avatar/', views.update_avatar, name='update_avatar'),
     path('profile/<str:username>/follow/',
          views.toggle_follow, name='toggle_follow'),
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
 
 ]

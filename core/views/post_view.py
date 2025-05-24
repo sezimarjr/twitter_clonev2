@@ -36,6 +36,7 @@ def index(request):
 
     for post in page_obj:
         post.liked_by_user = post.likes.filter(user=request.user).exists()
+        post.total_comments = post.comments.count()
 
     new_users = Profile.objects.exclude(
         user=request.user).order_by('-user__date_joined')[:4]
@@ -49,6 +50,7 @@ def index(request):
         'form': form,
         'posts': page_obj,
         'new_users': new_users,
+        'has_next': page_obj.has_next(),
     })
 
 
