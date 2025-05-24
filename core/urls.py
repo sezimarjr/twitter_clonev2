@@ -15,5 +15,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='core:login'), name='logout'),
     path('post/<int:post_id>/like/', views.like_post, name='like_post'),
     path('update-avatar/', views.update_avatar, name='update_avatar'),
+    path('profile/<str:username>/follow/',
+         views.toggle_follow, name='toggle_follow'),
 
 ]

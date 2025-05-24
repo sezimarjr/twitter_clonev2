@@ -148,7 +148,45 @@
               <p>Joined {{profile.user.date_joined|date:"j \d\e F \d\e Y"}}</p>
             </div>
           </div>
+          {% if user.is_authenticated and user != profile.user %}
+          <form
+            action="{% url 'core:toggle_follow' profile.user.username %}"
+            method="post"
+          >
+            {% csrf_token %}
+            <button type="submit">
+              {% if is_following %} Seguindo {% else %} Seguir {% endif %}
+            </button>
+          </form>
+          {% endif %} {% comment %}
+          <div class="profile__actions">
+            {% if user.is_authenticated and user != profile.user %}
+            <form
+              action="{% url 'core:toggle_follow' profile.user.username %}"
+              method="post"
+            >
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="follow-btn {% if is_following %}following{% endif %}"
+              >
+                {% if is_following %} Seguindo {% else %} Seguir {% endif %}
+              </button>
+            </form>
+            {% endif %}
+
+            <!-- Contadores (opcional) -->
+            <div class="profile__stats">
+              <span>{{ user_to_view.get_followers.count }} seguidores</span>
+              <span>{{ user_to_view.get_following.count }} seguindo</span>
+            </div>
+          </div>
+          {% endcomment %}
           <!-- Fechamento adicionado para profile__info -->
+          <div class="profile__stats">
+            <span>{{ user_to_view.get_following.count }} seguidores</span>
+            <span>{{ user_to_view.get_followers.count }} seguindo</span>
+          </div>
 
           <div id="post-list">{% include 'partials/post_list.html' %}</div>
         </div>

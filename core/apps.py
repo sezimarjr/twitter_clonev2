@@ -7,3 +7,5 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         import core.signals
+        from .user_utils import setup_user_methods
+        setup_user_methods()

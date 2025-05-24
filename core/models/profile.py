@@ -4,9 +4,6 @@ from django.contrib.auth.models import User
 from django.forms import ValidationError
 
 
-# Modelo do Perfil
-
-
 def validate_image(image):
     if not image.name.endswith(('.png', '.jpg', '.jpeg')):
         raise ValidationError(
