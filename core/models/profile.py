@@ -36,3 +36,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    @property
+    def short_name(self):
+        """Retorna 'primeiro último' ou apenas o nome se for curto"""
+        if not self.name:
+            return self.user.username  # fallback
+        name_parts = self.name.split()
+        if len(name_parts) >= 2:
+            return f"{name_parts[0]} {name_parts[-1]}"
+        return self.name

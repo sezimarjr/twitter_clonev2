@@ -127,16 +127,25 @@
               src="{{ profile.avatar.url }}" 
               alt="{{ profile.user }}" 
               {% if profile.user == user %}onclick="document.getElementById('avatar-input').click()"{% endif %}
-              style="{% if profile.user == user %}cursor: pointer;{% endif %}"
             />
-            {% if profile.user == user %}
-            <input
-              type="file"
-              id="avatar-input"
-              accept="image/*"
-              style="display: none"
-              onchange="uploadAvatar(this.files)"
-            />
+            {% if user.is_authenticated and user != profile.user %}
+            <form
+              class="follow-form"
+              action="{% url 'core:toggle_follow' profile.user.username %}"
+              method="post"
+            >
+              {% csrf_token %}
+              <button
+                class="{% if is_following %}btn-seguindo{% else %}btn-seguir{% endif %}"
+                type="submit"
+              >
+                {% if is_following %} Seguindo {% else %} Seguir {% endif %}
+              </button>
+            </form>
+            {% endif %} {% if profile.user == user %}
+            <button class="btn-edit-profile" onclick="openEditModal()">
+              Editar perfil
+            </button>
             {% endif %}
           </div>
         </div>
@@ -144,48 +153,35 @@
         <div class="profile__container">
           <div class="profile__info">
             <div class="profile__content">
-              <h1>{{profile.user}}</h1>
-              <p>Joined {{profile.user.date_joined|date:"j \d\e F \d\e Y"}}</p>
+              <h1>{{profile.short_name}}</h1>
+              <h3>@{{profile.user.username}}</h3>
+              <h4 class="profile__bio">{{profile.bio}}</h4>
+              <div class="profile__date">
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  class="calendar-icon"
+                >
+                  <g>
+                    <path
+                      d="M7 4V3h2v1h6V3h2v1h1.5C19.89 4 21 5.12 21 6.5v12c0 1.38-1.11 2.5-2.5 2.5h-13C4.12 21 3 19.88 3 18.5v-12C3 5.12 4.12 4 5.5 4H7zm0 2H5.5c-.27 0-.5.22-.5.5v12c0 .28.23.5.5.5h13c.28 0 .5-.22.5-.5v-12c0-.28-.22-.5-.5-.5H17v1h-2V6H9v1H7V6zm0 6h2v-2H7v2zm0 4h2v-2H7v2zm4-4h2v-2h-2v2zm0 4h2v-2h-2v2zm4-4h2v-2h-2v2z"
+                    ></path>
+                  </g>
+                </svg>
+                <p>
+                  <!-- prettier-ignore -->
+                  Ingressou em {{profile.user.date_joined|date:"j \d\e F \d\e Y"}}
+                </p>
+              </div>
             </div>
           </div>
-          {% if user.is_authenticated and user != profile.user %}
-          <form
-            action="{% url 'core:toggle_follow' profile.user.username %}"
-            method="post"
-          >
-            {% csrf_token %}
-            <button type="submit">
-              {% if is_following %} Seguindo {% else %} Seguir {% endif %}
-            </button>
-          </form>
-          {% endif %} {% comment %}
-          <div class="profile__actions">
-            {% if user.is_authenticated and user != profile.user %}
-            <form
-              action="{% url 'core:toggle_follow' profile.user.username %}"
-              method="post"
-            >
-              {% csrf_token %}
-              <button
-                type="submit"
-                class="follow-btn {% if is_following %}following{% endif %}"
-              >
-                {% if is_following %} Seguindo {% else %} Seguir {% endif %}
-              </button>
-            </form>
-            {% endif %}
 
-            <!-- Contadores (opcional) -->
-            <div class="profile__stats">
-              <span>{{ user_to_view.get_followers.count }} seguidores</span>
-              <span>{{ user_to_view.get_following.count }} seguindo</span>
-            </div>
-          </div>
-          {% endcomment %}
           <!-- Fechamento adicionado para profile__info -->
           <div class="profile__stats">
-            <span>{{ user_to_view.get_following.count }} seguidores</span>
-            <span>{{ user_to_view.get_followers.count }} seguindo</span>
+            <p>
+              <span>{{ user_to_view.get_following.count }}</span> seguidores
+            </p>
+            <p><span>{{ user_to_view.get_followers.count }}</span> seguindo</p>
           </div>
 
           <div id="post-list">{% include 'partials/post_list.html' %}</div>
@@ -215,39 +211,114 @@
         </div>
       </div>
     </div>
+    <div id="editProfileModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Editar Perfil</h2>
+        <form
+          id="editProfileForm"
+          method="post"
+          enctype="multipart/form-data"
+          action="{% url 'core:update_profile' %}"
+        >
+          {% csrf_token %}
+
+          <div class="profile__avatar__container">
+            <input
+              onchange="uploadAvatar(this.files)"
+              type="file"
+              id="id_avatar"
+              name="avatar"
+              accept="image/*"
+              style="display: none"
+            />
+
+            <!-- prettier-ignore -->
+            <img 
+              id="profile-avatar-edit" 
+              class="profile__avatar-edit" 
+              src="{{ profile.avatar.url }}" 
+              alt="{{ profile.user }}" 
+            />
+
+            {% if profile.user == user %}
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              onclick="document.getElementById('id_avatar').click()"
+              class="profile__avatar-edit-icon"
+            >
+              <g>
+                <path
+                  d="M9.697 3H11v2h-.697l-3 2H5c-.276 0-.5.224-.5.5v11c0 .276.224.5.5.5h14c.276 0 .5-.224.5-.5V10h2v8.5c0 1.381-1.119 2.5-2.5 2.5H5c-1.381 0-2.5-1.119-2.5-2.5v-11C2.5 6.119 3.619 5 5 5h1.697l3-2zM12 10.5c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-4 2c0-2.209 1.791-4 4-4s4 1.791 4 4-1.791 4-4 4-4-1.791-4-4zM17 2c0 1.657-1.343 3-3 3v1c1.657 0 3 1.343 3 3h1c0-1.657 1.343-3 3-3V5c-1.657 0-3-1.343-3-3h-1z"
+                ></path>
+              </g>
+            </svg>
+            {% endif %}
+          </div>
+
+          <input
+            placeholder="Nome"
+            maxlength="30"
+            minlength="3"
+            type="text"
+            id="id_short_name"
+            name="name"
+            value="{{ profile.name }}"
+          />
+
+          <textarea
+            resize="none"
+            placeholder="Biografia"
+            maxlength="160"
+            id="id_bio"
+            name="bio"
+          ></textarea>
+
+          <button type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
   </body>
   <script>
+    function openEditModal() {
+      document.getElementById("editProfileModal").classList.remove("hidden");
+    }
+
+    function closeEditModal() {
+      document.getElementById("editProfileModal").classList.add("hidden");
+    }
     function uploadAvatar(files) {
       if (files.length === 0) return;
 
-      // Validação de tamanho (2MB)
-      if (files[0].size > 2 * 1024 * 1024) {
+      const file = files[0];
+
+      if (file.size > 2 * 1024 * 1024) {
         alert("A imagem deve ter no máximo 2MB!");
-        return; // Impede o envio
+
+        // Limpa o input de arquivo
+        const fileInput = document.querySelector(
+          'input[type="file"][name="avatar"]'
+        );
+        if (fileInput) {
+          fileInput.value = "";
+        }
+        return;
       }
 
-      // Restante do código do fetch...
-      const formData = new FormData();
-      formData.append("avatar", files[0]);
-      formData.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+      // ✅ Pré-visualização automática
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const avatarImg = document.getElementById("profile-avatar-edit");
+        if (avatarImg) {
+          avatarImg.src = e.target.result;
+        }
+      };
+      reader.readAsDataURL(file);
 
-      fetch("{% url 'core:update_avatar' %}", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            // Atualiza a imagem
-            document.getElementById("profile-avatar").src =
-              data.avatar_url + "?t=" + Date.now();
-            window.location.reload();
-          } else {
-            alert(data.error || "Erro ao atualizar avatar.");
-          }
-        })
-        .catch((error) => console.error("Erro:", error));
+      // Aqui pode adicionar envio automático via AJAX, se quiser.
     }
+
     function likePost(postId) {
       fetch(`/post/${postId}/like/`, {
         method: "POST",

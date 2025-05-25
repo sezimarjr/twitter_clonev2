@@ -8,12 +8,15 @@
   </a>
   <div class="post__content">
     <h3>
-      <a href="{% url 'core:profile' username=post.user.username %}">
-        {{post.user}}
-      </a>
-      <span class="post__date">
-        {{post.created_at|date:"d M"}} {{post.created_at|date:"H:i"}}
-      </span>
+      <div>
+        <a href="{% url 'core:profile' username=post.user.username %}">
+          {{ post.user.profile.short_name }}
+        </a>
+        <span class="post__date">
+          @{{post.user}} · {{post.created_at|date:"d M"}}
+          {{post.created_at|date:"H:i"}}
+        </span>
+      </div>
     </h3>
     <p>{{post.content|linebreaksbr }}</p>
 

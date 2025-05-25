@@ -13,6 +13,11 @@ def register(request):
         if form.is_valid():
             try:
                 user = form.save()
+
+                name = form.cleaned_data.get('name')
+                if name:
+                    user.profile.name = name
+                    user.profile.save()
                 messages.success(
                     request, 'Registration successful! Please log in.')
                 return redirect('core:login')

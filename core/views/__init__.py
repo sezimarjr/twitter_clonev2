@@ -6,3 +6,4 @@ from .like_view import like_post
 from .upload_avatar import update_avatar
 from .toggle_follow import toggle_follow
 from .post_detail import post_detail
+from .update_profile import update_profile
