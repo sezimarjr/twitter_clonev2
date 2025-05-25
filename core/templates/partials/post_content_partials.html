@@ -107,7 +107,7 @@
 
       <div>
         <a href="{% url 'core:profile' username=comment.user.username %}">
-          <strong>{{ comment.user.username }}</strong>
+          <strong>{{ comment.user.profile.short_name }}</strong>
         </a>
 
         <p>{{ comment.content }}</p>
