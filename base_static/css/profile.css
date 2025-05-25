@@ -200,11 +200,16 @@ main {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
+  position: relative;
 }
 .profile__avatar-edit-icon {
+  /* position: absolute;
+  left: 215px;
+  top: 35px; */
   position: absolute;
-  left: 210px;
-  top: 35px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   width: 32px;
   height: 32px;
@@ -483,6 +488,9 @@ main {
   .border-top {
     width: 499px;
   }
+  .btn-edit-profile {
+    left: 75%;
+  }
   .publish__post-button {
     width: 93%;
   }
@@ -494,6 +502,12 @@ main {
   }
   .publish__post-button {
     width: 80%;
+  }
+  .profile__stats {
+    padding-left: 16px;
+  }
+  .btn-edit-profile {
+    left: 70%;
   }
   main {
     width: 100vw;
@@ -570,10 +584,17 @@ main {
     width: 88%;
   }
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 440px) {
   main {
     width: 100vw;
   }
+  .btn-edit-profile {
+    left: 70%;
+  }
+  .profile__stats {
+    padding-left: 16px;
+  }
+
   .border-top {
     width: 100vw;
   }

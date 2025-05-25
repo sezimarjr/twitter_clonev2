@@ -23,12 +23,15 @@
     <a href="{% url 'core:profile' username=post.user.username %}">
       <img class="post__img" src="{{post.user.profile.avatar.url}}" alt="" />
     </a>
-    <a
-      class="post__username"
-      href="{% url 'core:profile' username=post.user.username %}"
-    >
-      {{post.user}}
-    </a>
+    <div>
+      <a
+        class="post__username"
+        href="{% url 'core:profile' username=post.user.username %}"
+      >
+        {{post.user.profile.short_name}}
+      </a>
+      <p style="color: #94a4b6; font-size: 14px">@{{post.user.username}}</p>
+    </div>
   </div>
 
   <div class="single__post-content">

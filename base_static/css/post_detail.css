@@ -118,3 +118,27 @@ li {
 .user__comment p {
   font-size: 15px;
 }
+
+@media screen and (max-width: 1200px) {
+  ul {
+    padding-left: 0px;
+  }
+  aside ul {
+    padding-left: 40px;
+  }
+  form button {
+    left: 75%;
+  }
+}
+
+@media screen and (max-width: 866px) {
+  main {
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  form button {
+    left: 70%;
+  }
+}
