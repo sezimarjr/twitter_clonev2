@@ -45,7 +45,7 @@ body {
 }
 .glass-container-register {
   width: 300px;
-  height: 450px;
+  height: 475px;
   position: relative;
   z-index: 1;
   background: rgba(50, 57, 63, 0.2);

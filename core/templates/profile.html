@@ -214,73 +214,185 @@
     <div id="editProfileModal" class="modal hidden">
       <div class="modal-content">
         <span class="close" onclick="closeEditModal()">&times;</span>
-        <h2>Editar Perfil</h2>
-        <form
-          id="editProfileForm"
-          method="post"
-          enctype="multipart/form-data"
-          action="{% url 'core:update_profile' %}"
-        >
-          {% csrf_token %}
 
-          <div class="profile__avatar__container">
+        <div class="modal-buttons">
+          <button
+            class="modal-single-button selected"
+            onclick="showForm('profile')"
+          >
+            Editar Perfil
+          </button>
+          <button class="modal-single-button" onclick="showForm('password')">
+            Alterar Senha
+          </button>
+        </div>
+
+        <!-- Formulário Editar Perfil -->
+        <div id="profile-form">
+          <form
+            id="editProfileForm"
+            method="post"
+            enctype="multipart/form-data"
+            action="{% url 'core:update_profile' %}"
+          >
+            {% csrf_token %}
+
+            <div class="profile__avatar__container">
+              <input
+                onchange="uploadAvatar(this.files)"
+                type="file"
+                id="id_avatar"
+                name="avatar"
+                accept="image/*"
+                style="display: none"
+              />
+              <img
+                id="profile-avatar-edit"
+                class="profile__avatar-edit"
+                src="{{ profile.avatar.url }}"
+                alt="{{ profile.user }}"
+              />
+              {% if profile.user == user %}
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                onclick="document.getElementById('id_avatar').click()"
+                class="profile__avatar-edit-icon"
+              >
+                <g>
+                  <path
+                    d="M9.697 3H11v2h-.697l-3 2H5c-.276 0-.5.224-.5.5v11c0 .276.224.5.5.5h14c.276 0 .5-.224.5-.5V10h2v8.5c0 1.381-1.119 2.5-2.5 2.5H5c-1.381 0-2.5-1.119-2.5-2.5v-11C2.5 6.119 3.619 5 5 5h1.697l3-2zM12 10.5c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-4 2c0-2.209 1.791-4 4-4s4 1.791 4 4-1.791 4-4 4-4-1.791-4-4zM17 2c0 1.657-1.343 3-3 3v1c1.657 0 3 1.343 3 3h1c0-1.657 1.343-3 3-3V5c-1.657 0-3-1.343-3-3h-1z"
+                  ></path>
+                </g>
+              </svg>
+              {% endif %}
+            </div>
+
             <input
-              onchange="uploadAvatar(this.files)"
-              type="file"
-              id="id_avatar"
-              name="avatar"
-              accept="image/*"
-              style="display: none"
+              placeholder="Nome"
+              maxlength="30"
+              minlength="3"
+              type="text"
+              id="id_short_name"
+              name="name"
+              value="{{ profile.name }}"
             />
 
-            <!-- prettier-ignore -->
-            <img 
-              id="profile-avatar-edit" 
-              class="profile__avatar-edit" 
-              src="{{ profile.avatar.url }}" 
-              alt="{{ profile.user }}" 
-            />
+            <textarea
+              resize="none"
+              placeholder="Biografia"
+              maxlength="160"
+              id="id_bio"
+              name="bio"
+            ></textarea>
 
-            {% if profile.user == user %}
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              onclick="document.getElementById('id_avatar').click()"
-              class="profile__avatar-edit-icon"
-            >
-              <g>
-                <path
-                  d="M9.697 3H11v2h-.697l-3 2H5c-.276 0-.5.224-.5.5v11c0 .276.224.5.5.5h14c.276 0 .5-.224.5-.5V10h2v8.5c0 1.381-1.119 2.5-2.5 2.5H5c-1.381 0-2.5-1.119-2.5-2.5v-11C2.5 6.119 3.619 5 5 5h1.697l3-2zM12 10.5c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-4 2c0-2.209 1.791-4 4-4s4 1.791 4 4-1.791 4-4 4-4-1.791-4-4zM17 2c0 1.657-1.343 3-3 3v1c1.657 0 3 1.343 3 3h1c0-1.657 1.343-3 3-3V5c-1.657 0-3-1.343-3-3h-1z"
-                ></path>
-              </g>
-            </svg>
-            {% endif %}
-          </div>
+            <button type="submit">Salvar</button>
+          </form>
+        </div>
 
-          <input
-            placeholder="Nome"
-            maxlength="30"
-            minlength="3"
-            type="text"
-            id="id_short_name"
-            name="name"
-            value="{{ profile.name }}"
-          />
+        <!-- Formulário Alterar Senha -->
+        <div style="display: none" id="password-form" style="display: block">
+          <form
+            id="changePasswordForm"
+            method="post"
+            action="{% url 'core:update_profile' %}"
+          >
+            {% csrf_token %}
 
-          <textarea
-            resize="none"
-            placeholder="Biografia"
-            maxlength="160"
-            id="id_bio"
-            name="bio"
-          ></textarea>
+            <div class="form-group">
+              <input
+                minlength="5"
+                type="password"
+                id="id_password1"
+                name="password1"
+                placeholder="Nova senha"
+                value="{{ password1|default:'' }}"
+                required
+              />
+              {% if password_error %}
+              <div class="error">{{ password_error }}</div>
+              {% endif %}
+            </div>
 
-          <button type="submit">Salvar</button>
-        </form>
+            <div class="form-group">
+              <input
+                minlength="5"
+                type="password"
+                id="id_password2"
+                name="password2"
+                placeholder="Confirme a senha"
+                value="{{ password2|default:'' }}"
+                required
+              />
+            </div>
+
+            <button type="submit">Alterar Senha</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const changePasswordForm = document.getElementById("changePasswordForm");
+      const password1 = document.getElementById("id_password1");
+      const password2 = document.getElementById("id_password2");
+
+      // Cria e insere o elemento para mostrar erro
+      const errorDiv = document.createElement("div");
+      errorDiv.style.color = "red";
+      errorDiv.style.marginTop = "5px";
+      errorDiv.style.display = "none";
+      password2.parentNode.appendChild(errorDiv);
+
+      changePasswordForm.addEventListener("submit", (e) => {
+        // Limpa mensagem anterior
+        errorDiv.style.display = "none";
+        errorDiv.textContent = "";
+
+        if (password1.value.length < 5) {
+          e.preventDefault();
+          errorDiv.textContent = "A senha deve ter pelo menos 5 caracteres.";
+          errorDiv.style.display = "block";
+          password1.focus();
+        }
+
+        if (password1.value !== password2.value) {
+          e.preventDefault();
+          errorDiv.textContent = "As senhas não coincidem.";
+          errorDiv.style.display = "block";
+          password2.focus();
+        } else if (
+          password1.value.trim() === "" ||
+          password2.value.trim() === ""
+        ) {
+          e.preventDefault();
+          errorDiv.textContent = "Preencha ambos os campos de senha.";
+          errorDiv.style.display = "block";
+          password1.focus();
+        }
+      });
+    });
+    function showForm(form) {
+      const profileForm = document.getElementById("profile-form");
+      const passwordForm = document.getElementById("password-form");
+
+      const buttons = document.querySelectorAll(".modal-single-button");
+      buttons.forEach((button) => {
+        button.classList.remove("selected");
+      });
+
+      if (form === "profile") {
+        profileForm.style.display = "block";
+        passwordForm.style.display = "none";
+
+        buttons[0].classList.add("selected");
+      } else if (form === "password") {
+        profileForm.style.display = "none";
+        passwordForm.style.display = "block";
+        buttons[1].classList.add("selected");
+      }
+    }
     function openEditModal() {
       document.getElementById("editProfileModal").classList.remove("hidden");
     }

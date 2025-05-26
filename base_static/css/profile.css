@@ -329,10 +329,12 @@ main {
   flex-direction: column;
   gap: 10px;
 }
-#editProfileForm button {
+#editProfileForm button,
+#changePasswordForm button {
   margin-top: 24px;
 }
-#editProfileForm input {
+#editProfileForm input,
+#changePasswordForm input {
   padding: 10px;
   margin-top: 25px;
   border: none;
@@ -352,6 +354,33 @@ main {
   color: #fff;
   font-size: 13px;
   resize: none;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.modal-single-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #777777;
+  font-size: 24px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.modal-single-button:hover {
+  color: #fff;
+  border-bottom: 1px solid #a7863b;
+  transition: all 0.3s ease;
+}
+
+.selected {
+  color: #fff;
+  border-bottom: 1px solid #a7863b;
+  transition: all 0.3s ease;
 }
 
 .close {
@@ -450,6 +479,18 @@ main {
   position: absolute;
   left: 80%;
   bottom: -50px;
+}
+.error {
+  color: red;
+  font-size: 0.8em;
+}
+.form-group .error {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+.form-group input {
+  width: 100%;
 }
 @media screen and (max-width: 1200px) {
   li a span {
@@ -593,6 +634,10 @@ main {
   }
   .profile__stats {
     padding-left: 16px;
+  }
+
+  .follow-form {
+    left: 72%;
   }
 
   .border-top {
